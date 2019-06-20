@@ -1,10 +1,12 @@
 $(document).ready(function() {
   var animals = ["dogs", "cats", "birds", "foxes"];
 
-  function getGiphy () {
+  function getGiphy() {
     var gifOutput = $(this).attr("data-name");
     var queryURL =
-    "https://api.giphy.com/v1/gifs/search?q="+gifOutput+"&api_key=Mq4E6OuzrHkhXWUwEVi0rYucsNv4cPCU&limit=10&rating=g";
+      "https://api.giphy.com/v1/gifs/search?q=" +
+      gifOutput +
+      "&api_key=Mq4E6OuzrHkhXWUwEVi0rYucsNv4cPCU&limit=10&rating=g";
 
     $.ajax({
       url: queryURL,
@@ -20,8 +22,6 @@ $(document).ready(function() {
         var rating = results[i].rating;
         var p = $("<h2>").text("Rating: " + rating);
         var giphyImg = $("<img>");
-   
-  
 
         giphyDiv.addClass("image");
 
@@ -34,10 +34,8 @@ $(document).ready(function() {
         giphyImg.attr("data-state", "still");
         giphyImg.addClass("giphyImg");
 
-
         giphyDiv.append(p);
         giphyDiv.append(giphyImg);
-
 
         $("#animalZone").prepend(giphyDiv);
       }
@@ -55,8 +53,8 @@ $(document).ready(function() {
         }
       });
     });
-  };
-  function makeButtons () {
+  }
+  function makeButtons() {
     $("#exampleBtn").empty();
 
     for (var i = 0; i < animals.length; i++) {
@@ -68,7 +66,6 @@ $(document).ready(function() {
       moreAnimals.attr("data-name", animals[i]);
       moreAnimals.attr("type", "button");
 
-
       moreAnimals.text(animals[i]);
 
       $("#exampleBtn").append(moreAnimals);
@@ -76,16 +73,15 @@ $(document).ready(function() {
   }
 
   $("#animalBtn").on("click", function(event) {
-      event.preventDefault();
-      var giphy = $("#inputBox")
+    event.preventDefault();
+    var giphy = $("#inputBox")
       .val()
       .trim();
 
-      animals.push(giphy)
-      makeButtons();
+    animals.push(giphy);
+    makeButtons();
   });
 
   $(document).on("click", "#animalGif", getGiphy);
   makeButtons();
-
 });
